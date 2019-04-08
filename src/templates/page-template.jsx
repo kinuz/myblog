@@ -12,14 +12,8 @@ class PageTemplate extends React.Component {
     const description = pageDescription !== null ? pageDescription : subtitle
 
     return (
-      <Layout>
-        <div>
-          <Helmet>
-            <title>{`${pageTitle} - ${title}`}</title>
-            <meta name="description" content={description} />
-          </Helmet>
-          <PageTemplateDetails {...this.props} />
-        </div>
+      <Layout pageTitle={pageTitle} descriptio={description}>
+        <PageTemplateDetails {...this.props} />
       </Layout>
     )
   }

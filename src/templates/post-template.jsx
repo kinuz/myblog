@@ -12,14 +12,8 @@ class PostTemplate extends React.Component {
     const description = postDescription !== null ? postDescription : subtitle
 
     return (
-      <Layout>
-        <div>
-          <Helmet>
-            <title>{`${postTitle} - ${title}`}</title>
-            <meta name="description" content={description} />
-          </Helmet>
-          <PostTemplateDetails {...this.props} />
-        </div>
+      <Layout pageTitle={postTitle} description={description} hideSidebar={true}>
+        <PostTemplateDetails {...this.props} />
       </Layout>
     )
   }

@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import moment from 'moment'
 import './style.scss'
 import { Badge } from 'reactstrap'
-import { Button } from 'reactstrap'
+import kebabCase from 'lodash/kebabCase'
 
 class Post extends React.Component {
   render() {
@@ -39,9 +39,11 @@ class Post extends React.Component {
         </h2>
         <p className="post__description">{description}</p>
         {tags.map(tag => (
-          <Badge color="primary mr-1">
-            {tag}
-          </Badge>
+          <Link to={`/tags/${kebabCase(tag)}/`}>
+            <Badge color="primary mr-1">
+              {tag}
+            </Badge>
+          </Link>
         ))}
       </div>
     )

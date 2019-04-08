@@ -15,7 +15,7 @@ class PostTemplateDetails extends React.Component {
       <div>
         <div>
           <Link className="post-single__home-button" to="/">
-            All Posts
+            Home
           </Link>
         </div>
         <div className="post-single">
@@ -47,13 +47,6 @@ class PostTemplateDetails extends React.Component {
             <hr />
             <p className="post-single__footer-text">
               {subtitle}
-              <a
-                href={`https://twitter.com/${author.twitter}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <br /> <strong>{author.name}</strong> on Twitter
-              </a>
             </p>
             <div>
               <Disqus

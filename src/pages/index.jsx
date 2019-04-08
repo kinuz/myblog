@@ -1,86 +1,55 @@
 import React from 'react'
-import Helmet from 'react-helmet'
-import { graphql } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 import Layout from '../components/Layout'
 import Post from '../components/Post'
-import Sidebar from '../components/Sidebar'
 import Pagebar from '../components/Pagination'
 
+const IndexRoute = () => (
+    <StaticQuery query={PostListQuery} render={data => {
+      const items = []
+      const posts = data.allMarkdownRemark.edges
 
-class IndexRoute extends React.Component {
-  render() {
-    const items = []
-    const { title, subtitle } = this.props.data.site.siteMetadata
-    const posts = this.props.data.allMarkdownRemark.edges
-    
-    posts.forEach(post => {
-      items.push(<Post data={post} key={post.node.fields.slug} />)
-    })
+      posts.forEach(post => {
+        items.push(<Post data={post} key={post.node.fields.slug} />)
+      })
 
-    return (
-      <Layout>
-        <div>
-          <Helmet>
-            <title>{title}</title>
-            <meta name="description" content={subtitle} />
-          </Helmet>
-          <Sidebar {...this.props} />
+      return (
+        <Layout pageTitle="blog by Kinuz">
           <div className="content">
             <div className="content__inner">{items}</div>
-            <Pagebar/>
+            <Pagebar current={1}/>
           </div>
-        </div>
-      </Layout>
-    )
-  }
-}
+        </Layout>
+      )
+    }}
+    ></StaticQuery>
+)
 
 export default IndexRoute
 
-export const pageQuery = graphql`
-  query PostListQuery {
-    site {
-      siteMetadata {
-        title
-        subtitle
-        copyright
-        menu {
-          label
-          path
+export const PostListQuery = graphql`
+    query PostListQuery {
+        allMarkdownRemark(
+            limit: 3
+            filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
+            sort: { order: DESC, fields: [frontmatter___date] }
+        ) {
+            edges {
+                node {
+                    fields {
+                        slug
+                        categorySlug
+                    }
+                    frontmatter {
+                        title
+                        date(formatString: "MMM Do YYYY")
+                        category
+                        description
+                        tags
+                    }
+                }
+            }
         }
-        author {
-          name
-          email
-          telegram
-          twitter
-          github
-          linkedin
-          facebook
-          rss
-          vk
-        }
-      }
     }
-    allMarkdownRemark(
-      limit: 3
-      filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
-      sort: { order: DESC, fields: [frontmatter___date] }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-            categorySlug
-          }
-          frontmatter {
-            title
-            date
-            category
-            description
-            tags
-          }
-        }
-      }
-    }
-  }
 `
+
