@@ -51,6 +51,13 @@ module.exports = {
         name: 'pages',
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/posts`,
+        name: 'posts',
+      },
+    },
     // {
     //   resolve: 'gatsby-plugin-feed',
     //   options: {
