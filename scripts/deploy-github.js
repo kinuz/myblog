@@ -4,7 +4,7 @@ ghpages.publish(
   'public',
   {
     branch: 'master',
-    repo: 'https://github.com/kinuz/kinuz.github.io.git',
+    repo: 'https://kinuz@github.com/kinuz/kinuz.github.io.git',
   },
   () => {
     console.log('Deploy Complete!')
