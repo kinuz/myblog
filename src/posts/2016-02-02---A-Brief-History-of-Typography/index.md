@@ -4,12 +4,9 @@ date: "2016-02-02T22:40:32.169Z"
 layout: post
 draft: false
 path: "/posts/a-brief-history-of-typography/"
-category: "Design Inspiration"
+category: "sample"
 tags:
-  - "Linotype"
-  - "Monotype"
-  - "History of typography"
-  - "Helvetica"
+  - "gatsby"
 description: "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat."
 ---
 

@@ -1,24 +1,40 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import TagTemplateDetails from '../components/TagTemplateDetails'
+import Post from "../components/Post"
 
-class TagTemplate extends React.Component {
-  render() {
-    const { tag } = this.props.pageContext
+const TagTemplate = ({data, pageContext}) => {
 
-    return (
-      <Layout pageTitle={`All Posts tagged as "${tag}"`} menu="tags">
-        <TagTemplateDetails {...this.props} />
-      </Layout>
-    )
-  }
+  const { tag } = pageContext
+  const items = []
+  const tagTitle = pageContext.tag
+  const posts = data.allMarkdownRemark.edges
+  posts.forEach(post => {
+    items.push(<Post data={post} key={post.node.fields.slug} />)
+  })
+
+  return (
+    <Layout pageTitle={`All Posts tagged as "${tag}"`} menu="tags">
+      <div className="content">
+        <div className="content__inner">
+          <div className="page">
+            <h1 className="page__title">
+              All Posts tagged as &quot;
+              {tagTitle}
+              &quot;
+            </h1>
+            <div className="page__body">{items}</div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
 }
 
 export default TagTemplate
 
-export const pageQuery = graphql`
-  query TagPage($tag: String) {
+export const tagQuery = graphql`
+  query ($tag: String!) {
     allMarkdownRemark(
       limit: 1000
       filter: {

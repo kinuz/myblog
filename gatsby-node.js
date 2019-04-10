@@ -2,6 +2,9 @@ const _ = require('lodash')
 const Promise = require('bluebird')
 const path = require('path')
 const slash = require('slash')
+// const { slugify } = require('./src/util/utilityFunctions')
+const moment = require('moment')
+
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -29,6 +32,8 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
+                title
+                date
                 tags
                 layout
                 category
@@ -59,8 +64,10 @@ exports.createPages = ({ graphql, actions }) => {
 
 
       _.each(posts, edge => {
+        // console.log(`/posts/${moment(edge.node.frontmatter.date).format('YYYY/MM/DD')}/${slugify(edge.node.frontmatter.title)}`)
         createPage({
           path: edge.node.fields.slug,
+          // path: `/posts/${moment(edge.node.frontmatter.date).format('YYYY/MM/DD')}/${_.kebabCase(edge.node.frontmatter.title)}`,
           component: slash(Templates.postTemplate),
           context: { slug: edge.node.fields.slug },
         })
@@ -76,7 +83,9 @@ exports.createPages = ({ graphql, actions }) => {
           createPage({
             path: tagPath,
             component: Templates.tagTemplate,
-            context: { tag },
+            context: {
+              tag,
+            },
           })
         })
 

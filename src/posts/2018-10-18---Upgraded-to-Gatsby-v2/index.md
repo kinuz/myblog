@@ -4,10 +4,9 @@ date: "2018-10-18T16:51:00.000Z"
 layout: post
 draft: false
 path: "/posts/upgraded-to-gatsby-v2/"
-category: "hello"
+category: "sample"
 tags:
-  - "Gatsby"
-  - "Web Development"
+  - "gatsby"
 description: "This starter has been forked and upgraded to Gatsby v2"
 ---
 

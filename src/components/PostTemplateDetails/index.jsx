@@ -37,8 +37,8 @@ class PostTemplateDetails extends React.Component {
               Tags: {' '}
               {tags &&
               tags.map((tag, i) => (
-                <Link to={tag} className="mr-1">
-                  <Badge color="primary" key={tag}>
+                <Link to={tag} className="mr-1" key={tag}>
+                  <Badge color="primary">
                     {post.frontmatter.tags[i]}
                   </Badge>
                 </Link>

@@ -1,24 +1,35 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import CategoryTemplateDetails from '../components/CategoryTemplateDetails'
+import Post from "../components/Post"
 
-class CategoryTemplate extends React.Component {
-  render() {
-    const { category } = this.props.pageContext
+const CategoryTemplate = ({data, pageContext}) => {
+  const { category } = pageContext
+  const items = []
 
-    return (
-      <Layout pageTitle={`${category}`} menu="category">
-        <CategoryTemplateDetails {...this.props}/>
-      </Layout>
-    )
-  }
+  const posts = data.allMarkdownRemark.edges
+  posts.forEach(post => {
+    items.push(<Post data={post} key={post.node.fields.slug} />)
+  })
+
+  return (
+    <Layout pageTitle={`All Posts in ${category} category`} menu="category">
+      <div className="content">
+        <div className="content__inner">
+          <div className="page">
+            <h1 className="page__title">{category}</h1>
+            <div className="page__body">{items}</div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
 }
 
 export default CategoryTemplate
 
-export const pageQuery = graphql`
-  query CategoryPage($category: String) {
+export const CategoryQuery = graphql`
+  query ($category: String) {
     allMarkdownRemark(
       limit: 1000
       filter: {
