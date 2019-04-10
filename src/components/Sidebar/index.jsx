@@ -5,7 +5,8 @@ import Links from '../Links'
 import profilePic from '../../pages/photo.png'
 import './style.scss'
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+
     return (
       <StaticQuery query={SidebarQuery} render={data => {
         const {author, subtitle, copyright, menu} = data.site.siteMetadata
@@ -34,7 +35,7 @@ const Sidebar = () => {
             <div className="sidebar__inner">
               <div className="sidebar__author">{authorBlock}</div>
               <div>
-                <Menu data={menu} />
+                <Menu data={menu} menu={props.menu}/>
                 <Links data={author} />
                 <p className="sidebar__copyright">{copyright}</p>
               </div>

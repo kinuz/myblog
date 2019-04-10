@@ -8,8 +8,8 @@ class CategoryTemplate extends React.Component {
     const { category } = this.props.pageContext
 
     return (
-      <Layout pageTitle={`${category}`}>
-        <CategoryTemplateDetails {...this.props} />
+      <Layout pageTitle={`${category}`} menu="category">
+        <CategoryTemplateDetails {...this.props}/>
       </Layout>
     )
   }

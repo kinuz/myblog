@@ -5,12 +5,11 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { graphql, StaticQuery } from "gatsby"
 import Sidebar from "./Sidebar"
 
-const Layout = ({ children, pageTitle, hideSidebar }) => {
-
+const Layout = ({ children, pageTitle, hideSidebar, menu }) => {
   return (
     <StaticQuery query={LayoutQuery} render={data => {
       const { title, subtitle } = data.site.siteMetadata
-      const sidebar_tag = hideSidebar ? '' : <Sidebar/>
+      const sidebar_tag = hideSidebar ? '' : <Sidebar menu={menu}/>
 
         return (
         <div className="layout">

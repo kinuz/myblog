@@ -4,24 +4,26 @@ import './style.scss'
 
 class Menu extends React.Component {
   render() {
-    const menu = this.props.data
-
+    const selectedMenu = this.props.menu
     const menuBlock = (
       <ul className="menu__list">
-        {menu.map(item => (
-          <li className="menu__list-item" key={item.path}>
-            <Link
-              to={item.path}
-              className="menu__list-item-link"
-              activeClassName="menu__list-item-link menu__list-item-link--active"
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
+        {this.props.data.map(item => {
+
+          const extraClass = _.lowerCase(item.label) === selectedMenu ? " menu__list-item-link--active": ""
+          return (
+            <li className="menu__list-item" key={item.path}>
+              <Link
+                to={item.path}
+                className={`menu__list-item-link${extraClass}`}
+                activeClassName="menu__list-item-link menu__list-item-link--active"
+              >
+                {item.label}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     )
-
     return <nav className="menu">{menuBlock}</nav>
   }
 }

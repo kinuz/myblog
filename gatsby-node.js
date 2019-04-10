@@ -42,56 +42,61 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
         reject(result.errors)
       }
-
-
-      let postTotal = 0
-
-      _.each(result.data.allMarkdownRemark.edges, edge => {
-        if (_.get(edge, 'node.frontmatter.layout') === 'page') {
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(Templates.pageTemplate),
-            context: { slug: edge.node.fields.slug },
-          })
-        } else if (_.get(edge, 'node.frontmatter.layout') === 'post') {
-          postTotal += 1
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(Templates.postTemplate),
-            context: { slug: edge.node.fields.slug },
-          })
-
-          let tags = []
-          if (_.get(edge, 'node.frontmatter.tags')) {
-            tags = tags.concat(edge.node.frontmatter.tags)
-          }
-
-          tags = _.uniq(tags)
-          _.each(tags, tag => {
-            const tagPath = `/tags/${_.kebabCase(tag)}/`
-            createPage({
-              path: tagPath,
-              component: Templates.tagTemplate,
-              context: { tag },
-            })
-          })
-
-          let categories = []
-          if (_.get(edge, 'node.frontmatter.category')) {
-            categories = categories.concat(edge.node.frontmatter.category)
-          }
-
-          categories = _.uniq(categories)
-          _.each(categories, category => {
-            const categoryPath = `/categories/${_.kebabCase(category)}/`
-            createPage({
-              path: categoryPath,
-              component: Templates.categoryTemplate,
-              context: { category },
-            })
-          })
-        }
+      const [posts, pages] = _.partition(result.data.allMarkdownRemark.edges, edge => {
+        return edge.node.frontmatter.layout === 'post'
       })
+      const postTotal = posts.length
+      _.each(pages, edge => {
+        createPage({
+          path: edge.node.fields.slug,
+          component: slash(Templates.pageTemplate),
+          context: {
+            slug: edge.node.fields.slug,
+            postTotal: postTotal
+          },
+        })
+      })
+
+
+      _.each(posts, edge => {
+        createPage({
+          path: edge.node.fields.slug,
+          component: slash(Templates.postTemplate),
+          context: { slug: edge.node.fields.slug },
+        })
+
+        let tags = []
+        if (_.get(edge, 'node.frontmatter.tags')) {
+          tags = tags.concat(edge.node.frontmatter.tags)
+        }
+
+        tags = _.uniq(tags)
+        _.each(tags, tag => {
+          const tagPath = `/tags/${_.kebabCase(tag)}/`
+          createPage({
+            path: tagPath,
+            component: Templates.tagTemplate,
+            context: { tag },
+          })
+        })
+
+        let categories = []
+        if (_.get(edge, 'node.frontmatter.category')) {
+          categories = categories.concat(edge.node.frontmatter.category)
+        }
+
+        categories = _.uniq(categories)
+        _.each(categories, category => {
+          const categoryPath = `/categories/${_.kebabCase(category)}/`
+          createPage({
+            path: categoryPath,
+            component: Templates.categoryTemplate,
+            context: { category },
+          })
+        })
+
+      })
+
 
 
       const postsPerPage = 3

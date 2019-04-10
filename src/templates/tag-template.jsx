@@ -8,7 +8,7 @@ class TagTemplate extends React.Component {
     const { tag } = this.props.pageContext
 
     return (
-      <Layout pageTitle={`All Posts tagged as "${tag}"`}>
+      <Layout pageTitle={`All Posts tagged as "${tag}"`} menu="tags">
         <TagTemplateDetails {...this.props} />
       </Layout>
     )
