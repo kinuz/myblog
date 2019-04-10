@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import './style.scss'
+import _ from 'lodash'
 
 class Menu extends React.Component {
   render() {

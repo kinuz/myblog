@@ -1,5 +1,4 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import PageTemplateDetails from '../components/PageTemplateDetails'
@@ -10,9 +9,8 @@ class PageTemplate extends React.Component {
     const page = this.props.data.markdownRemark
     const { title: pageTitle, description: pageDescription } = page.frontmatter
     const description = pageDescription !== null ? pageDescription : subtitle
-
     return (
-      <Layout pageTitle={pageTitle} descriptio={description}>
+      <Layout pageTitle={pageTitle} descriptio={description} menu={this.props['*']}>
         <PageTemplateDetails {...this.props} />
       </Layout>
     )

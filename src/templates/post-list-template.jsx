@@ -7,9 +7,6 @@ import Pagebar from "../components/Pagination"
 class PostListTemplate extends React.Component {
 
   render() {
-
-    console.log(this.props.pageContext)
-
     const items = []
     const posts = this.props.data.allMarkdownRemark.edges
     posts.forEach(post => {
