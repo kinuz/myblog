@@ -1,31 +1,36 @@
 import React from 'react'
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import _ from 'lodash'
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 
 
 const Pagebar = ({total, current}) => {
 
-  console.log(total)
+  const listsize = 3
+  const pagesize = 10
+  const totalPages = total > 0 ? Math.ceil(total / listsize) : 1
+  const totalGroups = Math.ceil(totalPages / pagesize)
+  const currentGroup = Math.ceil(current / pagesize)
+  const start = (currentGroup - 1) * pagesize + 1
+  const last = currentGroup * pagesize > totalPages ? totalPages : currentGroup * pagesize
+  const pageTags = _.map(_.range(start, last), page => {
+    return (page === current) ? (
+      <PaginationItem active>
+        <PaginationLink href="#">{page}</PaginationLink>
+      </PaginationItem>
+    ) : (
+      <PaginationItem>
+        <PaginationLink href="#">{page}</PaginationLink>
+      </PaginationItem>
+    )
+  })
 
   return (
     <Pagination size="sm" aria-label="Page navigation example" className="pagination justify-content-center">
-      <PaginationItem>
-        <PaginationLink first href="#" />
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink previous href="#" />
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href="#">1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink next href="#" />
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink last href="#" />
-      </PaginationItem>
+      <PaginationItem disabled={currentGroup === 1}><PaginationLink first href="/" /></PaginationItem>
+      <PaginationItem><PaginationLink previous href="#" /></PaginationItem>
+      {pageTags}
+      <PaginationItem><PaginationLink next href="#" /></PaginationItem>
+      <PaginationItem disabled={currentGroup === totalGroups}><PaginationLink last href="#" /></PaginationItem>
     </Pagination>
   )
 }
