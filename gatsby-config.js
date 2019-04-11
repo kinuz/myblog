@@ -3,6 +3,10 @@ const pxtorem = require('postcss-pxtorem')
 
 module.exports = {
   siteMetadata: {
+    configs: {
+      pagesize: '10',
+      listsize: '5'
+    },
     url: 'https://kinuz.netlify.com',
     title: 'Kinuz Blog',
     subtitle:

@@ -3,7 +3,6 @@ title: Test Post
 date: "2019-04-09 16:51:00"
 layout: post
 draft: true
-path: "/posts/test-post/"
 category: "test"
 tags:
   - "Test"

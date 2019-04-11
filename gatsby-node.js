@@ -22,6 +22,30 @@ exports.createPages = ({ graphql, actions }) => {
 
     graphql(`
       {
+        site {
+          siteMetadata {
+              configs{
+                  pagesize
+                  listsize
+              }
+              url
+              title
+              subtitle
+              copyright
+              disqusShortname
+              author {
+                name
+                email
+                telegram
+                twitter
+                github
+                linkedin
+                facebook
+                rss
+                vk
+              }
+          }
+        }
         allMarkdownRemark(
           limit: 1000
           filter: { frontmatter: { draft: { ne: true } } }
@@ -100,16 +124,17 @@ exports.createPages = ({ graphql, actions }) => {
           createPage({
             path: categoryPath,
             component: Templates.categoryTemplate,
-            context: { category },
+            context: {
+              category
+            },
           })
         })
 
       })
 
-
-
-      const postsPerPage = 3
-      const numberOfPages = Math.ceil( postTotal / postsPerPage)
+      const numberOfPages = Math.ceil( postTotal / result.data.site.siteMetadata.configs.listsize)
+      const listsize = parseInt(result.data.site.siteMetadata.configs.listsize)
+      const pagesize = parseInt(result.data.site.siteMetadata.configs.pagesize)
       Array.from({ length: numberOfPages }).forEach((_, index) => {
         if (index === 0) return
         createPage({
@@ -117,8 +142,9 @@ exports.createPages = ({ graphql, actions }) => {
           component: Templates.postListTemplate,
           context: {
             total: postTotal,
-            limit: postsPerPage,
-            skip: index * postsPerPage,
+            listsize,
+            pagesize,
+            skip: index * listsize,
             current: index+1
           }
         })
@@ -139,11 +165,22 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     node.internal.type === 'MarkdownRemark' &&
     typeof node.slug === 'undefined'
   ) {
+
     const fileNode = getNode(node.parent)
     let slug = fileNode.fields.slug
     if (typeof node.frontmatter.path !== 'undefined') {
       slug = node.frontmatter.path
     }
+    if ( node.frontmatter.layout === 'post' ) {
+      slug = [
+        (node.frontmatter.category ? `/${_.kebabCase(node.frontmatter.category)}` : ''),
+        moment(node.frontmatter.date).format('YYYY/MM/DD'),
+        _.kebabCase(node.frontmatter.title),
+      ].join('/')
+    }
+
+
+
     createNodeField({
       node,
       name: 'slug',

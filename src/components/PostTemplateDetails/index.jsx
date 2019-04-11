@@ -4,13 +4,13 @@ import moment from 'moment'
 import Disqus from '../Disqus'
 import './style.scss'
 import { Badge } from "reactstrap"
+import _ from 'lodash'
 
 class PostTemplateDetails extends React.Component {
   render() {
     const { subtitle, author } = this.props.data.site.siteMetadata
     const post = this.props.data.markdownRemark
     const tags = post.fields.tagSlugs
-
     return (
       <div>
         <div>
@@ -45,9 +45,17 @@ class PostTemplateDetails extends React.Component {
               ))}
             </div>
             <hr />
-            <p className="post-single__footer-text">
-              {subtitle}
-            </p>
+            {/*<p className="post-single__footer-text">*/}
+            {/*  {subtitle}*/}
+            {/*</p>*/}
+            Related
+            <ul>
+              {post.frontmatter.refs && _.map(post.frontmatter.refs, (ref) => (
+                <li key={ref}>
+                  <a href={ref} rel="noreferrer noopener" target="_blank">{ref}</a>
+                </li>
+              ))}
+            </ul>
             <div>
               <Disqus
                 postNode={post}

@@ -3,7 +3,6 @@ title: asciinema
 date: 2019-03-12 21:51:23
 layout: post
 draft: false
-path: /posts/record-and-share-your-terminal-sessions/
 category: development
 tags:
   - development

@@ -3,7 +3,6 @@ title: Docker-machine으로 Docker 클러스터 구축
 date: 2019-04-10 23:01:57
 layout: post
 draft: false
-path: /posts/Docker-machine으로 Docker 클러스터 구축/
 category: vagrant
 tags:
   - docker

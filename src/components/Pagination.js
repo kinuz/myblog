@@ -3,10 +3,8 @@ import _ from 'lodash'
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 
 
-const Pagebar = ({total, current}) => {
+const Pagebar = ({total, current, listsize, pagesize}) => {
 
-  const listsize = 3
-  const pagesize = 10
   const totalPages = total > 0 ? Math.ceil(total / listsize) : 1
   const totalGroups = Math.ceil(totalPages / pagesize)
   const currentGroup = Math.ceil(current / pagesize)

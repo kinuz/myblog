@@ -3,7 +3,6 @@ title: Vagrant 환경으로 Docker 클러스터 구축
 date: 2019-04-09 20:13:31
 layout: post
 draft: false
-path: /posts/test-Vagrant 환경으로 Docker 클러스터 구축/
 category: vagrant
 tags:
   - vagrant
@@ -11,7 +10,8 @@ tags:
 description: Provisioning Vagrant multi-machines with Ansible
 ---
 
-- https://github.com/kinuz/provisioning-with-vagrant.git
+
+    https://github.com/kinuz/provisioning-with-vagrant.git
 
 ### ansible.cfg
 ```

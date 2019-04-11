@@ -1,24 +1,31 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Post from "../components/Post"
+import moment from 'moment'
+import _ from 'lodash'
+import PostLink from '../components/PostLink'
 
 const CategoryTemplate = ({data, pageContext}) => {
   const { category } = pageContext
-  const items = []
-
   const posts = data.allMarkdownRemark.edges
-  posts.forEach(post => {
-    items.push(<Post data={post} key={post.node.fields.slug} />)
-  })
 
   return (
     <Layout pageTitle={`All Posts in ${category} category`} menu="category">
       <div className="content">
         <div className="content__inner">
           <div className="page">
-            <h1 className="page__title">{category}</h1>
-            <div className="page__body">{items}</div>
+            <h1 className="page__title">
+              {category} category ({posts.length})
+            </h1>
+            <div className="page__body">
+              {_.map(posts, post => (
+                <div key={post.node.id}>
+                  {moment(post.node.frontmatter.date).format('YYYY-MM-DD')}
+                  {' '}
+                  <PostLink {...post}/>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -29,7 +36,7 @@ const CategoryTemplate = ({data, pageContext}) => {
 export default CategoryTemplate
 
 export const CategoryQuery = graphql`
-  query ($category: String) {
+  query ($category: String!) {
     allMarkdownRemark(
       limit: 1000
       filter: {
@@ -43,16 +50,13 @@ export const CategoryQuery = graphql`
     ) {
       edges {
         node {
+          id
           fields {
             slug
-            categorySlug
           }
           frontmatter {
             title
             date
-            category
-            description
-            tags
           }
         }
       }

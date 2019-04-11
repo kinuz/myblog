@@ -1,17 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Post from "../components/Post"
+import _ from "lodash"
+import moment from 'moment'
+import PostLink from "../components/PostLink"
 
 const TagTemplate = ({data, pageContext}) => {
 
   const { tag } = pageContext
-  const items = []
   const tagTitle = pageContext.tag
   const posts = data.allMarkdownRemark.edges
-  posts.forEach(post => {
-    items.push(<Post data={post} key={post.node.fields.slug} />)
-  })
 
   return (
     <Layout pageTitle={`All Posts tagged as "${tag}"`} menu="tags">
@@ -23,7 +21,15 @@ const TagTemplate = ({data, pageContext}) => {
               {tagTitle}
               &quot;
             </h1>
-            <div className="page__body">{items}</div>
+            <div className="page__body">
+              {_.map(posts, post => (
+                <div key={post.node.id}>
+                  {moment(post.node.frontmatter.date).format('YYYY-MM-DD')}
+                  {' '}
+                  <PostLink {...post}/>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -48,16 +54,13 @@ export const tagQuery = graphql`
     ) {
       edges {
         node {
+          id
           fields {
             slug
-            categorySlug
           }
           frontmatter {
             title
             date
-            category
-            description
-            tags
           }
         }
       }

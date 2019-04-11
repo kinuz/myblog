@@ -48,6 +48,7 @@ export const PostBySlugQuery = graphql`
         date
         description
         tags
+        refs
       }
     }
   }
