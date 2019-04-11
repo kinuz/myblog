@@ -6,7 +6,6 @@ draft: false
 path: /posts/record-and-share-your-terminal-sessions/
 category: test
 tags:
-  - manjaro
   - development
 description: Record and share your terminal sessions
 refs:
