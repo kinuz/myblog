@@ -1,6 +1,6 @@
 ---
 title: Terminal Mp3 Player - cmus
-date: 2019-04-09 16:51:00
+date: 2019-04-03 19:51:00
 layout: post
 draft: false
 category: manjaro

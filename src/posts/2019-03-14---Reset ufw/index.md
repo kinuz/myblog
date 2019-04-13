@@ -1,6 +1,6 @@
 ---
 title: Reset ufw
-date: 2019-04-09 20:13:31
+date: 2019-03-14 20:13:31
 layout: post
 draft: false
 category: ubuntu
