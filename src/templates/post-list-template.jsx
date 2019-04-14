@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Layout from '../components/Layout'
 import Post from "../components/Post"
 import Pagebar from "../components/Pagination"
+import _ from 'lodash'
 
 const PostListTemplate = ({data, pageContext}) => {
   return (

@@ -26,7 +26,7 @@ const IndexRoute = ({ data }) => {
 
 export default IndexRoute
 
-export const PostListQuery = graphql`
+export const PostIndexQuery = graphql`
     query {
         site {
             siteMetadata {
