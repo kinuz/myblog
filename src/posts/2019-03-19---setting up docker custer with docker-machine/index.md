@@ -1,5 +1,5 @@
 ---
-title: Docker-machine으로 Docker 클러스터 구축
+title: setting up docker custer with docker-machine
 date: 2019-03-19 23:01:57
 layout: post
 draft: false

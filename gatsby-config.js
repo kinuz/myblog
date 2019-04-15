@@ -10,7 +10,7 @@ module.exports = {
     url: 'https://kinuz.netlify.com',
     title: 'Kinuz Blog',
     subtitle:
-      '',
+      'Try to write what I\'m doing and \'ve done..',
     copyright: '© All rights reserved.',
     disqusShortname: 'NuzHome',
     menu: [

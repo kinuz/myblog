@@ -1,5 +1,5 @@
 ---
-title: Vagrant 환경으로 Docker 클러스터 구축
+title: setting up docker cluster with vagrant/ansible
 date: 2019-03-22 20:13:31
 layout: post
 draft: false
